@@ -33,7 +33,7 @@ variable "vm_count_per_subnet" {
 	default=2
 }
 
-variable "region" {
+variable "location" {
   description = "The location/region where the virtual network is created. Changing this forces a new resource to be created."
 }
 
@@ -95,10 +95,4 @@ variable "admin_username" {
 variable "admin_password" {
   description = "administrator password (recommended to disable password auth)"
   default = "admin01!"
-}
-
-variable "environment" {
-  description = "tag name for vm"
-  type="list"
-	  default=["test-vm-id-1", "test-vm-id-2"]
 }
