@@ -4,12 +4,12 @@ resource "random_id" "server" {
 
 resource "azurerm_resource_group" "rg" {
   name     = "${var.resource_group}-${random_id.server.hex}"
-  location = "${var.location}"
+  location = "${var.region}"
 }
 
 resource "azurerm_storage_account" "stor" {
   name                     = "stor${random_id.server.hex}"
-  location                 = "${var.location}"
+  location                 = "${var.region}"
   resource_group_name      = "${azurerm_resource_group.rg.name}"
   account_tier             = "${var.storage_account_tier}"
   account_replication_type = "${var.storage_replication_type}"
@@ -17,7 +17,7 @@ resource "azurerm_storage_account" "stor" {
 
 resource "azurerm_availability_set" "avset" {
   name                         = "avset${random_id.server.hex}"
-  location                     = "${var.location}"
+  location                     = "${var.region}"
   resource_group_name          = "${azurerm_resource_group.rg.name}"
   platform_fault_domain_count  = 2
   platform_update_domain_count = 2
@@ -26,7 +26,7 @@ resource "azurerm_availability_set" "avset" {
 
 resource "azurerm_public_ip" "lbpip" {
   name                = "${random_id.server.hex}-ip"
-  location            = "${var.location}"
+  location            = "${var.region}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   allocation_method   = "Dynamic"
   domain_name_label   = "lb${random_id.server.hex}"
@@ -34,7 +34,7 @@ resource "azurerm_public_ip" "lbpip" {
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "${random_id.server.hex}${var.virtual_network_name}"
-  location            = "${var.location}"
+  location            = "${var.region}"
   address_space       = ["${var.address_space}"]
   resource_group_name = "${azurerm_resource_group.rg.name}"
 }
@@ -49,7 +49,7 @@ resource "azurerm_subnet" "subnet" {
 resource "azurerm_lb" "lb" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
   name                = "lb${random_id.server.hex}"
-  location            = "${var.location}"
+  location            = "${var.region}"
 
   frontend_ip_configuration { 
     name                 = "LoadBalancerFrontEnd"
@@ -92,7 +92,7 @@ resource "azurerm_lb_probe" "lb_probe" {
 
 resource "azurerm_network_interface" "nic" {
   name                = "nic${count.index}${random_id.server.hex}"
-  location            = "${var.location}"
+  location            = "${var.region}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
   count               = "${var.vm_count_per_subnet}"
 
@@ -105,7 +105,7 @@ resource "azurerm_network_interface" "nic" {
 
 resource "azurerm_virtual_machine" "vm" {
   name                  = "vm${count.index}${random_id.server.hex}"
-  location              = "${var.location}"
+  location              = "${var.region}"
   resource_group_name   = "${azurerm_resource_group.rg.name}"
   availability_set_id   = "${azurerm_availability_set.avset.id}"
   vm_size               = "${var.vm_size}"
