@@ -97,9 +97,9 @@ resource "azurerm_network_interface" "nic" {
   count               = "${var.vm_count_per_subnet}"
 
   ip_configuration {
-    name                                    = "ipconfig${count.index}${random_id.server.hex}"
-    subnet_id                               = "${azurerm_subnet.subnet.id}"
-    private_ip_address_allocation           = "Dynamic"
+    name                          = "ipconfig${count.index}${random_id.server.hex}"
+    subnet_id                     = "${azurerm_subnet.subnet.id}"
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
