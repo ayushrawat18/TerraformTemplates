@@ -63,8 +63,6 @@ resource "azurerm_lb_backend_address_pool" "backend_pool" {
   name                = "BackendPool${random_id.server.hex}"
 }
 
-
-
 resource "azurerm_lb_rule" "lb_rule" {
   resource_group_name            = "${azurerm_resource_group.rg.name}"
   loadbalancer_id                = "${azurerm_lb.lb.id}"
