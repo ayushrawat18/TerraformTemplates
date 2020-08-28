@@ -97,6 +97,5 @@ variable "admin_password" {
   default = "admin01!"
 }
 
-variable "add_new_var" {
-  default = "FromImage" 
+variable "ren_ex_var" {
 }
