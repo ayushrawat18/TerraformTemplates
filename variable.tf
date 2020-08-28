@@ -98,4 +98,5 @@ variable "admin_password" {
 }
 
 variable "renamed_ex_var" {
+  default = "renamedvariable"
 }
