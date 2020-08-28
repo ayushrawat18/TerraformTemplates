@@ -119,7 +119,7 @@ resource "azurerm_virtual_machine" "vm" {
 
   storage_os_disk {
     name          = "osdisk${count.index}${random_id.server.hex}"
-    create_option = "FromImage"
+    create_option = "${var.add_new_var}"
   }
 
   os_profile {
