@@ -97,5 +97,5 @@ variable "admin_password" {
   default = "admin01!"
 }
 
-variable "ren_ex_var" {
+variable "renamed_ex_var" {
 }
