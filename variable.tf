@@ -96,7 +96,3 @@ variable "admin_password" {
   description = "administrator password (recommended to disable password auth)"
   default = "admin01!"
 }
-
-variable "renamed_ex_var" {
-  default = "renamedvariable"
-}
